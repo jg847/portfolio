@@ -2,6 +2,7 @@ import type { ProjectContent } from "@/content/projects";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { LinkButton } from "@/components/ui/LinkButton";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { withBasePath } from "@/lib/utils";
 
 type ProjectFeatureBlockProps = {
   project: ProjectContent;
@@ -44,7 +45,7 @@ export function ProjectFeatureBlock({ project, index }: ProjectFeatureBlockProps
         <ImageFrame>
   {project.image ? (
     <img
-      src={project.image}
+      src={withBasePath(project.image)}
       alt={project.heroAlt}
       className="aspect-[16/10] w-full rounded-md object-cover"
     />

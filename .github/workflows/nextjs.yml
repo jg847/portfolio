@@ -1,0 +1,100 @@
+name: Deploy To GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+    outputs:
+      site_url: ${{ steps.site-url.outputs.value }}
+      base_path: ${{ steps.base-path.outputs.value }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Configure GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Derive base path
+        id: base-path
+        shell: bash
+        run: |
+          repo_name="${GITHUB_REPOSITORY#*/}"
+          owner_name="${GITHUB_REPOSITORY%/*}"
+          if [[ "$repo_name" == "$owner_name.github.io" ]]; then
+            echo "value=" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=/$repo_name" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Derive site url
+        id: site-url
+        shell: bash
+        run: |
+          base_url="${{ steps.pages.outputs.base_url }}"
+          if [[ -n "$base_url" ]]; then
+            echo "value=$base_url" >> "$GITHUB_OUTPUT"
+          else
+            repo_name="${GITHUB_REPOSITORY#*/}"
+            owner_name="${GITHUB_REPOSITORY%/*}"
+            if [[ "$repo_name" == "$owner_name.github.io" ]]; then
+              echo "value=https://$owner_name.github.io" >> "$GITHUB_OUTPUT"
+            else
+              echo "value=https://$owner_name.github.io/$repo_name" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build static export
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.base-path.outputs.value }}
+          NEXT_PUBLIC_SITE_URL: ${{ steps.site-url.outputs.value }}
+        run: pnpm build
+
+      - name: Disable Jekyll processing
+        run: touch out/.nojekyll
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -6,6 +6,7 @@ import { QuoteBlock } from "@/components/ui/QuoteBlock";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { TextLink } from "@/components/ui/TextLink";
 import { projectsBySlug } from "@/content/projects";
+import { withBasePath } from "@/lib/utils";
 
 type ProjectPageScaffoldProps = {
   project: ProjectWithBody;
@@ -46,7 +47,7 @@ export function ProjectPageScaffold({ project }: ProjectPageScaffoldProps) {
             <ImageFrame contentClassName="flex aspect-[16/10] flex-col justify-between gap-8 p-8 md:p-10">
               {project.image ? (
                 <img
-                  src={project.image}
+                  src={withBasePath(project.image)}
                   alt={project.heroAlt}
                   className="aspect-[16/10] w-full rounded-md object-cover"
                 />

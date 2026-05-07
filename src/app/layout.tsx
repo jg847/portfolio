@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { siteData } from "@/content/site";
+import { withBasePath } from "@/lib/utils";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
   description:
     "Portfolio site for Jeanpaul Garcia, an NJIT student building useful AI tools and shipping them.",
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
+    icon: withBasePath("/icon.svg"),
+    shortcut: withBasePath("/icon.svg"),
   },
 };
 

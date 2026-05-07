@@ -17,7 +17,7 @@ export function LookingForCard({
   linkedInUrl,
 }: LookingForCardProps) {
   return (
-    <section className="mt-16 space-y-6">
+    <section id="about" className="mt-16 space-y-6">
       <div className="card-gradient px-6 py-8 sm:px-8">
         <p className="eyebrow">{lookingFor.eyebrow}</p>
         <div className="mt-4 grid gap-6 lg:grid-cols-[0.7fr_0.3fr] lg:items-end">

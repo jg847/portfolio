@@ -3,6 +3,7 @@ import { ImageFrame } from "@/components/ui/ImageFrame";
 import { LinkButton } from "@/components/ui/LinkButton";
 import { QuoteBlock } from "@/components/ui/QuoteBlock";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { withBasePath } from "@/lib/utils";
 
 type FeaturedProjectProps = {
   project: ProjectContent;
@@ -18,7 +19,7 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
         <ImageFrame>
           {project.image ? (
             <img
-              src={project.image}
+              src={withBasePath(project.image)}
               alt={project.heroAlt}
               className="aspect-[16/10] w-full rounded-md object-cover"
               />
