@@ -1,0 +1,95 @@
+## Overview
+
+Grounded Moves is a location-aware housing and affordability web application built to help users answer a practical question: can I realistically live in this market based on the jobs, rents, and budget tradeoffs available there? Instead of treating housing search, job search, and budgeting as separate tools, I designed the app around a chat-first experience that keeps those decisions connected.
+
+The product is built with Next.js, React, TypeScript, and Tailwind, and uses a clean-architecture structure to separate domain logic, application use cases, adapters, and framework code. Under the UI, the assistant combines external data providers, session-backed conversation memory, streaming responses, and typed tool contracts so answers are grounded in data rather than generic chatbot text.
+
+## Problem
+
+Most housing and relocation planning flows are fragmented. A user can find rent listings in one place, jobs in another, and then do budget math manually with almost no help connecting those pieces. That makes it hard to answer the question that matters most: does this move actually work for my income and obligations?
+
+I wanted to build an interface that reduces that fragmentation. The core idea was to let someone start with a plain-language prompt such as "Show me rentals and entry-level jobs near Austin" and get a response that stays grounded to a real location, compares housing and income realistically, and can continue over multiple turns without losing context.
+
+## My Approach
+
+### Make the chatbot the product
+
+The homepage is not a marketing landing page with chat hidden behind navigation. The main route renders a dedicated chat hero with a location anchor beside it, so the first interaction is immediately useful. That shift changed the whole product posture: the assistant became the primary experience, while Story and Resources became supporting surfaces.
+
+### Keep location explicit
+
+One of the biggest product risks in affordability tools is fake precision. I built the experience around an explicit location context so the app can disclose what market it is using, preserve the user's selected radius, and ask for clarification when an input is ambiguous. The test suite covers that behavior directly, including the case where a user enters only a state and the app asks once before falling back to a disclosed metro default.
+
+### Treat conversation memory as a real feature
+
+This project needed more than a one-shot chatbot. I implemented browser-scoped session memory with transcript hydration and reset flows so a user can reload the page and continue the same conversation. That makes the assistant usable for budgeting and multi-step exploration instead of only single-turn search.
+
+### Use a tool-first architecture instead of freeform generation
+
+The assistant is backed by typed tools for location lookup, jobs, housing, market baselines, retrieval, story context, and budgeting. Each tool has structured inputs and outputs, and the chat layer stores citations and tool artifacts alongside assistant responses. That keeps the interface grounded and makes the conversation inspectable instead of opaque.
+
+## What I Built
+
+- A chat-first homepage with a dedicated location anchor and supporting Story and Resources pages
+- Browser-session conversation persistence with restore and reset behavior
+- Streaming chat responses and tool-status updates for a more transparent assistant workflow
+- Location-aware housing, jobs, and affordability guidance with disclosed fallback behavior
+- A budget-planning capability that can keep structured budget state across turns
+- Typed tool-result artifacts and citations attached to assistant messages
+- Clean-architecture boundaries enforced with automated tests
+- Release-readiness scripts that combine linting, typechecking, unit tests, reliability tests, end-to-end tests, and build validation
+
+## Architecture Highlights
+
+The repository is organized around application, domain, interface-adapter, framework, and shared layers. That separation mattered because the product touches several moving pieces at once: UI state, model orchestration, external APIs, persistence, and telemetry.
+
+Some of the architectural decisions I leaned on most were:
+
+- using ports and adapters so conversation storage, telemetry, model access, and tool execution can be swapped without rewriting the application layer
+- treating tool execution as structured commands instead of letting UI code decide business behavior directly
+- keeping session and location state explicit so chat behavior is deterministic and testable
+- validating tool contracts with Zod so provider integrations fail more safely
+
+This let me grow the app from a Newark-specific concept into a more national, location-aware affordability assistant without rewriting the entire codebase from scratch.
+
+## Technical Challenges
+
+### Moving from a static concept to an actual product flow
+
+The earlier version of the idea was closer to a concept demo. The harder engineering work was turning it into a system that could support repeatable user journeys: enter a location, ask a question, see grounded results, reload the page, and continue.
+
+### Handling ambiguity honestly
+
+Location data is messy. Users type states, ZIP codes, city names, or vague phrases like "near me." I focused on making that ambiguity visible instead of hiding it. The app preserves location notes, discloses fallback behavior, and avoids pretending that a weak input is a precise answer.
+
+### Keeping chat output explainable
+
+A chatbot becomes less useful if users cannot tell where an answer came from. I addressed that by storing citations and tool results with assistant responses, which makes the transcript more like a traceable decision flow than a black-box chat log.
+
+## Testing and Reliability
+
+I treated reliability as part of the product, not cleanup work for later. The repo includes Vitest coverage for application logic and reliability scenarios, plus Playwright end-to-end tests for real browser journeys. Those tests cover behaviors such as homepage chat interaction, ambiguous location clarification, session restoration after reload, and native tool-use flows.
+
+I also added release-oriented scripts that bundle linting, typechecking, targeted reliability tests, full unit test runs, end-to-end tests, and production builds. That gave me a concrete quality gate for shipping changes instead of relying on manual checks.
+
+## Outcome
+
+The result is a portfolio project that is much closer to a real product than a UI mockup. Grounded Moves demonstrates full-stack application design, product thinking, and disciplined architecture in one project: a chat-first interface, stateful user experience, data-backed guidance, and an automated testing story that supports further iteration.
+
+Just as importantly, the project shows how I think about scope. I did not stop at a polished front end. I treated conversation memory, location resolution, structured tool use, fallback honesty, and release checks as core parts of the user experience.
+
+## Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Zod
+- Vitest
+- Playwright
+- Sentry
+- Upstash Redis
+
+## What I Would Improve Next
+
+If I keep extending the project, the next step would be improving the production data layer even further: expanding benchmark coverage, deepening retrieval quality, and continuing to refine how the assistant explains uncertainty when market data is incomplete or provider support varies by location.

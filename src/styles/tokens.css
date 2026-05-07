@@ -1,0 +1,79 @@
+:root {
+  /* Core palette — warm editorial sand */
+  --bg: #f7f1e8;
+  --bg-soft: #efe2d2;
+  --surface: rgba(255, 251, 247, 0.88);
+  --surface-warm: #fff7ef;
+  --surface-cream: #fffaf4;
+  --ink: #241913;
+  --ink-soft: #2f241c;
+  --body: #4f4033;
+  --muted: #6f5748;
+  --caption: #5c4839;
+
+  /* Accents — terracotta primary, sage secondary, moss tertiary */
+  --accent: #924f3c;
+  --accent-dk: #7f4130;
+  --accent-soft: #a15e49;
+  --sage: #607d6a;
+  --moss: #4a7c59;
+
+  /* Borders */
+  --hairline: #ddc4b1;
+  --hairline-soft: #ead9ca;
+  --hairline-warm: #d5bba8;
+  --hover: #fffaf3;
+
+  /* Radii — card-forward */
+  --radius-sm: 0.75rem;
+  --radius-md: 1.5rem;
+  --radius-lg: 1.75rem;
+  --radius-xl: 2rem;
+
+  /* Shadows — soft warm */
+  --shadow-sm: 0 16px 48px rgba(110, 73, 47, 0.08);
+  --shadow-md: 0 20px 60px rgba(110, 73, 47, 0.1);
+  --shadow-lg: 0 24px 80px rgba(110, 73, 47, 0.12);
+
+  /* Typography */
+  --font-family-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-family-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --text-h1: 3.5rem;
+  --text-h2: 1.75rem;
+  --text-h3: 1.25rem;
+  --text-body: 1.0625rem;
+  --text-small: 0.875rem;
+  --text-mono: 0.8125rem;
+
+  --leading-h1: 1.05;
+  --leading-h2: 1.2;
+  --leading-h3: 1.3;
+  --leading-body: 1.55;
+  --leading-small: 1.45;
+  --leading-mono: 1.4;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-surface: var(--surface);
+  --color-surface-warm: var(--surface-warm);
+  --color-surface-cream: var(--surface-cream);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-caption: var(--caption);
+  --color-accent: var(--accent);
+  --color-accent-dk: var(--accent-dk);
+  --color-accent-soft: var(--accent-soft);
+  --color-sage: var(--sage);
+  --color-moss: var(--moss);
+  --color-hairline: var(--hairline);
+  --color-hairline-soft: var(--hairline-soft);
+  --color-hairline-warm: var(--hairline-warm);
+  --color-hover: var(--hover);
+  --font-sans: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
+}

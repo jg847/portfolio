@@ -1,0 +1,97 @@
+## Overview
+
+FlashGuides is an AI study-guide web application built to help users go from raw source material to an actual review workflow. Instead of stopping at note capture or producing a generic block of AI text, the app generates full study-guide pages from a topic, pasted text, a webpage, or a YouTube link, then supports saving, revisiting, sharing, and exporting those guides.
+
+The product is built with Next.js, React, TypeScript, Tailwind, Prisma, and NextAuth, with a backend structure that separates generation orchestration, repositories, auth, sharing, storage, and external provider integrations. Under the UI, the app combines AI generation, guest gating, persistent guide records, public sharing, and export flows so the result feels closer to a real product than a single prompt box.
+
+## Problem
+
+Most study tools break the experience into disconnected steps. A student gathers material in one place, copies it somewhere else, asks an AI tool for help in another tab, then manually restructures the result into something they can actually review. Even when AI output is fast, it often still behaves like a rough draft rather than a usable guide.
+
+I wanted to build a system that closes that gap. The goal was to let someone start with the material they already have and turn it into a study guide that is not only generated, but also saved, rendered as a real page, revisitable later, and flexible enough to support guest use before asking for an account.
+
+## My Approach
+
+### Make the homepage the product
+
+The main route is built around generation, not around marketing copy or a dashboard gate. That matches the actual job the product needs to do: get a user from a study prompt to a usable guide as directly as possible. The dashboard still matters for returning users, but the first interaction is intentionally prompt-first.
+
+### Design for guest use without making it disposable
+
+I wanted guests to be able to try the product meaningfully instead of hitting a dead-end demo flow. FlashGuides supports guest usage with limits, watermarking, and claimable guides, then transitions registered users into a persistent dashboard and account experience. That product choice pushed into the actual access-control and guide-rendering logic, not just the UI.
+
+### Separate orchestration from framework code
+
+The system needed to combine authentication, persistence, guide generation, sharing, exports, and third-party integrations without turning route handlers into the whole backend. I kept those responsibilities in dedicated modules, with repositories for persistence, adapters for external tooling, and an orchestrator layer for generation. That makes the project easier to reason about and much easier to test.
+
+### Treat reliability as a core feature
+
+This app touches a lot of moving parts at once: auth, storage, rate limits, database access, rendering, sharing, and AI workflows. I treated tests and CI checks as part of the product, not cleanup work. The repo documents coverage thresholds and includes unit, integration, component, and Playwright end-to-end testing so changes can be validated across the full flow.
+
+## What I Built
+
+- A Next.js 16 application that generates study-guide webpages from a topic, pasted text, URL, or YouTube link
+- A prompt-first homepage and authenticated dashboard flow for returning users
+- Guest and authenticated experiences, including sign-in, registration, account settings, and claimable guest guides
+- Saved guide pages with slug-based routing, private/public visibility rules, and gallery browsing
+- Sharing and export features, plus a CLI source export tool included in the repository
+- A Prisma-backed persistence layer that supports local SQLite development and remote libsql-compatible deployment
+- A modular architecture built around repositories, adapters, factories, study-mode strategies, and a generation orchestrator
+- A testing stack that covers unit, integration, component, and browser-level flows
+
+## Architecture Highlights
+
+The repository is organized to keep business logic out of route handlers and UI components. The composition root wires concrete dependencies in one place, while repositories handle persistence, auth logic stays isolated, and generation logic lives in dedicated modules.
+
+Some of the decisions that mattered most here were:
+
+- using repositories so persistence rules stay outside page and API code
+- wrapping external services behind adapters and factories so integrations can change without rewriting the app surface
+- keeping generation orchestration in a dedicated layer instead of scattering logic across routes
+- separating guide rendering, sharing, export, security, and rate-limit concerns into focused modules
+
+That structure matters because FlashGuides is not just rendering AI text. It has to manage user state, guest rules, public and private content, external providers, and multiple delivery paths for the same guide content.
+
+## Technical Challenges
+
+### Turning generation into a full product flow
+
+The hard part was not calling a model. It was supporting the surrounding product lifecycle: create a guide, persist it, render it as a page, let a guest claim it later, control who can view it, and make it exportable or shareable.
+
+### Supporting multiple input types cleanly
+
+The app is designed to accept more than one type of source material. That means the product has to normalize different entry points, not just accept one text box and hope the rest of the system behaves the same. The architecture needed to leave room for those inputs without making the generation path brittle.
+
+### Keeping access rules consistent
+
+Guide visibility is more complicated than a simple logged-in check. FlashGuides has guest guides, watermark behavior, claimable content, owner-only controls, and public sharing paths. Making those rules explicit in the guide page and related flows was necessary to keep the product honest and predictable.
+
+## Testing and Reliability
+
+I treated reliability as part of the project story, not something separate from it. The repo includes a documented testing strategy with Vitest for unit and integration coverage, React Testing Library for component behavior, and Playwright for end-to-end user journeys. The CI expectations also include linting, typechecking, tests, and production builds.
+
+That matters because this project crosses several boundaries at once: UI rendering, auth, persistence, sharing, exports, and AI-backed workflows. The tests provide confidence that the project behaves like an application, not just a demo.
+
+## Outcome
+
+The result is a full-stack portfolio project that shows product thinking as much as implementation detail. FlashGuides demonstrates how I approach user flow, architecture, and reliability together: prompt-first interaction, guest-to-account onboarding, persistent guide management, shareable outputs, and a backend structure that can support ongoing iteration.
+
+More importantly, it shows that I think beyond the first generated response. I treated persistence, ownership, visibility, export, and testability as part of the actual user experience rather than as optional extras after the UI looked complete.
+
+## Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Prisma
+- NextAuth
+- Vitest
+- Playwright
+- Anthropic SDK
+- S3-compatible storage
+- Docker, MinIO, and Mailhog for local development services
+
+## What I Would Improve Next
+
+If I keep extending the project, the next improvements would be less about the base workflow and more about proof and hardening: stronger observability, clearer portfolio evidence through screenshots and generated-guide examples, and continued refinement of the generation and export experience so the product quality is as visible on the case-study page as it already is in the codebase.
