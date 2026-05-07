@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { SiteData } from "@/content/site";
 import { TextLink } from "@/components/ui/TextLink";
+import { withBasePath } from "@/lib/utils";
 
 type HeroBandProps = {
   site: SiteData;
@@ -63,7 +64,7 @@ export function HeroBand({ site }: HeroBandProps) {
             }}
           >
             <Image
-              src="/aiheadshot.png"
+              src={withBasePath("/aiheadshot.png")}
               alt={`Portrait of ${site.displayName}`}
               width={752}
               height={940}
