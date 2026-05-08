@@ -9,7 +9,7 @@ const techNotesSchema = z.object({
 });
 
 const projectSchema = z.object({
-  slug: z.enum(["newark-housing", "study-guide-generator", "voice-consultant"]),
+  slug: z.enum(["newark-housing", "study-guide-generator"]),
   title: z.string(),
   route: z.string(),
   homeAnchorId: z.string(),
@@ -28,7 +28,7 @@ const projectSchema = z.object({
       attribution: z.string(),
     })
     .optional(),
-  nextSlug: z.enum(["newark-housing", "study-guide-generator", "voice-consultant"]),
+  nextSlug: z.enum(["newark-housing", "study-guide-generator"]),
   techNotes: techNotesSchema,
 });
 
@@ -70,35 +70,13 @@ export const projects = projectSchema.array().parse([
     image: "/FlashGuidesLogo.png",
     homePrimaryCtaLabel: "Generate a study guide",
     caseStudyCtaLabel: "Generate a study guide",
-    nextSlug: "voice-consultant",
-    techNotes: {
-      stack: "[STACK]",
-      model: "[PLACEHOLDER MODEL NAME]",
-      hosting: "Vercel",
-      cost: "[PLACEHOLDER COST NOTE]",
-      note: "Proof details stay placeholder-safe until real examples are supplied.",
-    },
-  },
-  {
-    slug: "voice-consultant",
-    title: "Voice Consultant",
-    route: "/projects/voice-consultant",
-    homeAnchorId: "project-voice-consultant",
-    summary: "An in-progress voice workflow focused on demo-first proof rather than polished theater.",
-    statusLabel: "in progress",
-    liveUrl: "[VOICE_DEMO_URL]",
-    sourceUrl: "[SOURCE_URL_VOICE]",
-    proofLine: "The demo slot stays visible even before the final walkthrough is recorded.",
-    heroAlt: "Hero media placeholder for the Voice Consultant demo.",
-    homePrimaryCtaLabel: "Watch the demo",
-    caseStudyCtaLabel: "Watch the demo",
     nextSlug: "newark-housing",
     techNotes: {
       stack: "[STACK]",
       model: "[PLACEHOLDER MODEL NAME]",
       hosting: "Vercel",
       cost: "[PLACEHOLDER COST NOTE]",
-      note: "This project remains intentionally marked in progress.",
+      note: "Proof details stay placeholder-safe until real examples are supplied.",
     },
   },
 ]);

@@ -16,10 +16,10 @@ export function LinkButton({
   showPlaceholderValue = false,
 }: LinkButtonProps) {
   const className = cx(
-    "inline-flex min-h-12 items-center justify-center rounded-full border px-4 py-3 text-small font-semibold no-underline transition-colors",
+    "inline-flex min-h-12 items-center justify-center rounded-full px-4 py-3 text-small font-semibold no-underline transition-colors",
     variant === "primary"
-      ? "border-ink bg-ink text-bg hover:border-accent hover:bg-accent"
-      : "border-hairline bg-bg text-ink hover:bg-hover",
+      ? "btn-primary"
+      : "btn-secondary",
   );
 
   if (isPlaceholderValue(href)) {

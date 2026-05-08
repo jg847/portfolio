@@ -52,6 +52,7 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
         </div>
         <div className="space-y-4 border-t border-hairline pt-6">
           <p className="type-body text-ink">{project.proofLine}</p>
+          <p className="type-mono text-muted">{project.sourceUrl}</p>
           {project.quote ? (
             <QuoteBlock>
               <p className="type-body text-ink">{project.quote.text}</p>

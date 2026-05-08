@@ -11,6 +11,10 @@ type ProjectFeatureBlockProps = {
 
 export function ProjectFeatureBlock({ project, index }: ProjectFeatureBlockProps) {
   const reverse = index % 2 === 0;
+  const sectionLabel =
+    project.slug === "study-guide-generator"
+      ? "study guide creator - project 2"
+      : `project 0${index + 1}`;
 
   return (
     <section
@@ -19,7 +23,7 @@ export function ProjectFeatureBlock({ project, index }: ProjectFeatureBlockProps
     >
       <div className={reverse ? "space-y-8 lg:col-span-5 lg:col-start-8" : "space-y-8 lg:col-span-5"}>
         <div className="space-y-3">
-          <SectionLabel>{`project 0${index + 1}`}</SectionLabel>
+          <SectionLabel>{sectionLabel}</SectionLabel>
           <div className="flex flex-wrap items-center gap-3">
             <h2 className="type-h2">{project.title}</h2>
             {project.statusLabel === "in progress" ? (

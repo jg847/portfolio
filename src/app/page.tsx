@@ -4,6 +4,7 @@ import { LookingForCard } from "@/components/home/LookingForCard";
 import { PrinciplesCard } from "@/components/home/PrinciplesCard";
 import { ProjectFeatureBlock } from "@/components/home/ProjectFeatureBlock";
 import { TransitionStrip } from "@/components/home/TransitionStrip";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 import { projects } from "@/content/projects";
 import { siteData } from "@/content/site";
 
@@ -30,6 +31,14 @@ export default function HomePage() {
             index={index + 1}
           />
         ))}
+        <section className="border-t border-hairline py-16 lg:py-24">
+          <div className="space-y-4">
+            <SectionLabel>More work soon</SectionLabel>
+            <p className="type-body max-w-[34rem] text-body">
+              Another project will be added back when the proof is ready.
+            </p>
+          </div>
+        </section>
         <LookingForCard
           lookingFor={siteData.lookingFor}
           skills={siteData.skills}

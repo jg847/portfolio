@@ -69,9 +69,9 @@ export const siteData = siteSchema.parse({
   linkedInUrl: "https://www.linkedin.com/in/jeanpaul-garcia-724017293/",
   footerSourceUrl: "https://github.com/jg847/portfolio",
   quickLinks: [
-    { label: "housing bot", href: "#project-newark-housing" },
-    { label: "guide creator", href: "#project-study-guide-generator" },
-    { label: "ai consultant", href: "#project-voice-consultant" },
+    { label: "GitHub", href: "https://github.com/jg847/" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/jeanpaul-garcia-724017293/" },
+    { label: "Source", href: "https://github.com/jg847/portfolio" },
   ],
   stats: [
     { value: "3", label: "AI tools shipped end to end" },
