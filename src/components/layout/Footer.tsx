@@ -14,6 +14,9 @@ export function Footer() {
         <div className="flex flex-wrap items-center gap-3">
           <span className="type-small text-ink">{siteData.displayName}</span>
           <span className="type-mono text-muted">{new Date().getFullYear()}</span>
+          <TextLink href="/Jeanpaul-Resume.pdf" mono download>
+            Resume
+          </TextLink>
           <TextLink href={siteData.linkedInUrl} mono showPlaceholderValue>
             LinkedIn
           </TextLink>

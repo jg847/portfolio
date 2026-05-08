@@ -28,6 +28,12 @@ const skillSchema = z.object({
   items: z.array(z.string()).min(1),
 });
 
+const quickLinkSchema = z.object({
+  label: z.string(),
+  href: z.string(),
+  download: z.boolean().optional(),
+});
+
 const siteSchema = z.object({
   displayName: z.string(),
   email: z.string(),
@@ -40,14 +46,7 @@ const siteSchema = z.object({
   githubUrl: z.string(),
   linkedInUrl: z.string(),
   footerSourceUrl: z.string(),
-  quickLinks: z
-    .array(
-      z.object({
-        label: z.string(),
-        href: z.string(),
-      }),
-    )
-    .length(3),
+  quickLinks: z.array(quickLinkSchema).length(4),
   stats: z.array(statSchema).length(3),
   principles: z.array(principleSchema).length(3),
   testimonial: testimonialSchema,
@@ -72,6 +71,7 @@ export const siteData = siteSchema.parse({
     { label: "GitHub", href: "https://github.com/jg847/" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/jeanpaul-garcia-724017293/" },
     { label: "Source", href: "https://github.com/jg847/portfolio" },
+    { label: "Resume", href: "/Jeanpaul-Resume.pdf", download: true },
   ],
   stats: [
     { value: "3", label: "AI tools shipped end to end" },

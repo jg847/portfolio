@@ -31,7 +31,7 @@ export function HeroBand({ site }: HeroBandProps) {
             >
               {site.quickLinks.map((link, index) => (
                 <div key={link.href} className="flex items-center gap-3">
-                  <TextLink href={link.href} mono>
+                  <TextLink href={link.href} mono download={link.download}>
                     {link.label}
                   </TextLink>
                   {index < site.quickLinks.length - 1 ? (

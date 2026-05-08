@@ -1,12 +1,13 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { cx, isExternalHref, isPlaceholderValue } from "@/lib/utils";
+import { cx, isExternalHref, isPlaceholderValue, withBasePath } from "@/lib/utils";
 
 type TextLinkProps = {
   href: string;
   children: ReactNode;
   mono?: boolean;
   showPlaceholderValue?: boolean;
+  download?: boolean;
 };
 
 export function TextLink({
@@ -14,6 +15,7 @@ export function TextLink({
   children,
   mono = false,
   showPlaceholderValue = false,
+  download = false,
 }: TextLinkProps) {
   const className = cx(
     mono ? "type-mono" : "type-small",
@@ -39,6 +41,14 @@ export function TextLink({
         rel={isHttp ? "noreferrer" : undefined}
         target={isHttp ? "_blank" : undefined}
       >
+        {children}
+      </a>
+    );
+  }
+
+  if (download) {
+    return (
+      <a href={withBasePath(href)} className={className} download>
         {children}
       </a>
     );
