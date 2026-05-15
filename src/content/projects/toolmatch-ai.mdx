@@ -1,0 +1,112 @@
+# ToolMatch AI
+
+## Overview
+
+ToolMatch AI is a software discovery application built to help buyers narrow down business tools without relying on generic listicles or crowded comparison pages. Instead of forcing every visitor through the same static content path, the product gives them two main ways to reach a useful shortlist: a guided questionnaire for structured qualification and an AI-assisted chat experience for open-ended discovery.
+
+The application is organized around a practical buyer journey. A visitor can land on the homepage, choose between quiz and chat, describe their needs, and receive recommendation cards tied to tracked outbound affiliate links. Around that core loop, the site also includes category pages, comparison content, compliance pages, and an admin surface for managing offers, prompts, questionnaires, analytics, and revenue data.
+
+## Problem
+
+Software buyers usually have to piece together their research across multiple low-trust surfaces. Search results are crowded with SEO-heavy roundups, vendor pages are biased toward themselves, and many comparison sites optimize for traffic rather than actual fit. That creates friction for users who are trying to answer a simple question: which tools are worth evaluating for my situation?
+
+The point of ToolMatch AI is to reduce that friction. The application focuses on collecting the decision inputs that actually matter, such as use case, team context, budget, and priorities, then turning those inputs into a smaller, more actionable recommendation set.
+
+## Product Direction
+
+### Make the decision path obvious
+
+The homepage is designed around the shortest path to a shortlist. Instead of burying the product behind passive marketing copy, it puts the quiz, chat experience, and high-intent entry points up front. That keeps the UI aligned with the real purpose of the application: helping a buyer move from uncertainty to a narrower set of options.
+
+### Support both structured and unstructured discovery
+
+Not every visitor arrives with the same level of clarity. Some users want a branching questionnaire that walks them through decisions one step at a time. Others already know what they need and want to explain it in natural language. ToolMatch AI supports both patterns rather than forcing one interaction model onto every buyer.
+
+### Treat recommendations as a product system, not a single response
+
+The useful part of this product is not just generating text. It is the full loop around that recommendation: capture context, return ranked options, render them as cards, attach tracked outbound links, and give the admin side enough control to adjust offers and prompts over time.
+
+### Keep affiliate behavior explicit
+
+The application is built for affiliate-driven software discovery, so tracking and disclosure are part of the product behavior rather than an afterthought. Recommendation clicks are turned into tracked outbound URLs with session-aware identifiers, and the public site includes the supporting compliance and disclosure pages that a monetized discovery product needs.
+
+## What the Application Does
+
+- Guides users toward software recommendations through a homepage chat experience and a separate branching quiz flow
+- Collects context such as category, priorities, budget, and buyer constraints before presenting recommendations
+- Renders recommendation cards with outbound affiliate links and click tracking
+- Supports category pages and head-to-head comparison pages for users who prefer research-first navigation
+- Includes admin tooling for offer management, prompt management, questionnaire configuration, analytics review, and revenue-oriented reporting
+- Provides public trust and compliance content including FAQ, privacy, cookie notice, terms, and affiliate disclosure pages
+
+## Core User Flow
+
+1. A visitor lands on the homepage and chooses the fastest path for their situation.
+2. They either start the quiz for guided narrowing or use the embedded chat to describe what kind of software they need.
+3. The system gathers enough context to generate or refine a shortlist.
+4. Recommendations are shown as structured cards rather than buried in a long answer.
+5. If the visitor clicks through, the outbound URL is tracked for attribution and analytics.
+
+This matters because the app is not trying to be a generic chatbot. It is trying to move a user toward an informed next click.
+
+## Public Experience
+
+The public-facing side of ToolMatch AI is broader than a single landing page. The homepage introduces the product, the quiz provides a guided qualification route, and category and comparison pages create additional entry points for search-driven users. That combination allows the site to serve both high-intent visitors who want immediate help and research-oriented visitors who want context before engaging with the recommendation flow.
+
+The chat experience is embedded directly into the homepage so users can begin with plain-language prompts. The questionnaire experience handles more structured decision trees, loading an active questionnaire by category and stepping users through answers until the system can return a recommendation set.
+
+## Admin Experience
+
+The admin side is built around the operational surfaces needed to keep the recommendation engine useful over time.
+
+- Offer management controls the catalog of tools that can be recommended.
+- Prompt management gives the system a manageable place for recommendation and chat behavior changes.
+- Questionnaire management supports the branching quiz flow used on the public site.
+- Analytics and revenue views help inspect recommendation activity and outbound performance.
+
+That separation is important because ToolMatch AI is not just a content site. It is a recommendation workflow with a maintained catalog and evolving decision logic behind it.
+
+## Architecture Highlights
+
+The repository is structured as a Next.js App Router application with clear separation between public routes, admin routes, API endpoints, reusable UI components, and business-logic modules under `lib/`. That layout supports the main product responsibilities without forcing everything into page files.
+
+Some of the choices that stand out in the implementation are:
+
+- keeping public and admin experiences distinct in the route structure
+- isolating tracking utilities so affiliate URL generation and click payload logic are reusable
+- placing questionnaire, analytics, auth, AI, database, and tracking concerns into dedicated library areas
+- supporting a content layer that feeds metadata, breadcrumbs, FAQs, and other SEO-oriented public pages
+
+This gives the product room to support both conversion-oriented flows and administrative control without collapsing into route-level sprawl.
+
+## Technical Focus
+
+The main technical challenge in this application is not simply generating recommendations. It is keeping several connected concerns working together:
+
+- conversational input and branching questionnaire input
+- recommendation rendering and tracking
+- public SEO content and compliance content
+- offer catalog administration and prompt control
+- analytics visibility for the recommendation and affiliate loop
+
+Each of those pieces affects how trustworthy and useful the product feels. If one part is weak, the app starts looking like a thin affiliate wrapper instead of a real recommendation product.
+
+## Stack
+
+- Next.js 14 App Router
+- React 18
+- TypeScript
+- Tailwind CSS
+- Supabase
+- Jest and Testing Library
+- Playwright
+
+## Outcome
+
+ToolMatch AI is a full-stack software recommendation application centered on buyer guidance rather than raw content volume. It combines AI-assisted discovery, structured questionnaire logic, tracked recommendation clicks, and an admin interface for maintaining the system over time.
+
+What makes the project interesting is that it connects product thinking to implementation detail. The public experience is designed to reduce decision friction, the monetization path is explicit, and the admin surface exists to keep recommendations relevant instead of static.
+
+## What I Would Improve Next
+
+The next meaningful improvements would be in recommendation quality, observability, and admin ergonomics. That includes making the reasoning behind recommendations easier to inspect, deepening analytics beyond baseline click tracking, and tightening the workflow for managing questionnaire branches and offer performance from the admin side.

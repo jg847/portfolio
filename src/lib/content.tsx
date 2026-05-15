@@ -1,13 +1,17 @@
 import type { ComponentType } from "react";
 import type { Metadata } from "next";
 import NewarkHousingBody from "@/content/projects/newark-housing.mdx";
+import PersonalAiConsultantBody from "@/content/projects/personal-ai-consultant.mdx";
 import StudyGuideGeneratorBody from "@/content/projects/study-guide-generator.mdx";
+import ToolmatchAiBody from "@/content/projects/toolmatch-ai.mdx";
 import { projectOrder, projects, projectsBySlug, type ProjectContent, type ProjectSlug } from "@/content/projects";
 import { siteData } from "@/content/site";
 
 const projectBodies: Record<ProjectSlug, ComponentType<Record<string, never>>> = {
   "newark-housing": NewarkHousingBody,
+  "personal-ai-consultant": PersonalAiConsultantBody,
   "study-guide-generator": StudyGuideGeneratorBody,
+  "toolmatch-ai": ToolmatchAiBody,
 };
 
 export type ProjectWithBody = ProjectContent & {

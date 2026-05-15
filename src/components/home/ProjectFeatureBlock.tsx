@@ -14,6 +14,10 @@ export function ProjectFeatureBlock({ project, index }: ProjectFeatureBlockProps
   const sectionLabel =
     project.slug === "study-guide-generator"
       ? "study guide creator - project 2"
+      : project.slug === "toolmatch-ai"
+        ? "toolmatch ai - project 3"
+        : project.slug === "personal-ai-consultant"
+          ? "personal ai consultant - midterm"
       : `project 0${index + 1}`;
 
   return (

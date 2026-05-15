@@ -8,7 +8,7 @@ import { cx } from "@/lib/utils";
 
 export function Header() {
   const pathname = usePathname();
-  const workHref = pathname === "/" ? "#work" : "/#work";
+  const workHref = pathname === "/" ? "#project-newark-housing" : "/#project-newark-housing";
   const aboutHref = pathname === "/" ? "#about" : "/#about";
   const workIsActive = pathname === "/" || pathname.startsWith("/projects/");
 

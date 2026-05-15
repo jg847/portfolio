@@ -13,17 +13,11 @@ export function HeroBand({ site }: HeroBandProps) {
 
   return (
     <section id="work" className="pb-16 lg:pb-24">
-      <div className="max-w-[1040px] space-y-8 lg:space-y-10">
-        <p className="eyebrow">AI product engineer</p>
-        <h1 className="max-w-[10ch] text-[clamp(3.4rem,8.8vw,6.2rem)] leading-[0.93] font-semibold tracking-[-0.05em] text-ink">
-          {site.roleStatement}
-        </h1>
-
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start lg:gap-12">
+      <div className="grid max-w-[1040px] gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-center lg:gap-12">
           <div className="space-y-8">
-            <p className="max-w-[52rem] text-[1.25rem] leading-[1.7] text-body sm:text-[1.45rem] sm:leading-[1.62]">
-              {site.aboutParagraph}
-            </p>
+            <h1 className="max-w-[11ch] text-[clamp(2.8rem,6.6vw,4.9rem)] leading-[0.96] font-semibold tracking-[-0.045em] text-ink">
+              {site.roleStatement}
+            </h1>
 
             <nav
               aria-label="Project quick links"
@@ -50,7 +44,6 @@ export function HeroBand({ site }: HeroBandProps) {
               <a href={emailHref} className="btn-secondary">
                 Email me
               </a>
-              <p className="type-mono text-muted">{site.displayName} · Newark, NJ</p>
             </div>
           </div>
 
@@ -72,13 +65,12 @@ export function HeroBand({ site }: HeroBandProps) {
               className="aspect-[4/5] w-full rounded-[24px] object-cover object-center"
               priority
             />
-            <div className="mt-4 space-y-2">
+            <div className="mt-4 space-y-3 border-t border-hairline pt-4">
               <p className="eyebrow-dark">{site.displayName}</p>
-              <p className="type-body text-body">{site.currentStatus}</p>
-              <p className="type-mono text-muted">TypeScript, Next.js, Python</p>
+              <p className="type-body text-body">Senior at NJIT</p>
+              <p className="type-mono text-muted">TypeScript · Next.js · Python</p>
             </div>
           </aside>
-        </div>
       </div>
     </section>
   );

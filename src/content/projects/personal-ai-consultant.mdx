@@ -1,0 +1,98 @@
+## Overview
+
+Voice AI Consultant is a full-stack case study in building an AI assistant that behaves like a business tool instead of a novelty chat box. I built it around a consulting workflow: answer visitor questions, qualify demand, estimate ROI, surface approved proof, capture booking intent, and give the owner a way to manage everything that happens after the conversation.
+
+What makes the project interesting to me is not that it can chat. It is that the chat experience is connected to deterministic tools, account history, lead and booking workflows, voice input, retention controls, and owner publishing features. That combination turns the app into a product with operational depth rather than a single AI endpoint behind a nice interface.
+
+## Problem
+
+Most AI assistant demos prove only that a model can return text. They do not show what happens when a real visitor asks for pricing context, proof of past work, a time conversion, or a booking path. They also tend to ignore the product concerns that matter in practice: persistence, trust disclosures, operational follow-up, and owner control.
+
+I wanted this project to answer a harder question: what does an AI assistant look like when it is the front door to an actual consulting workflow? That meant designing for anonymous visitors and signed-in users, mixing deterministic and model-backed behavior deliberately, and supporting everything around the conversation instead of treating those concerns as future work.
+
+## My Approach
+
+### Make the interface reflect the product
+
+I made the homepage conversation-first because the chat is the product. Instead of treating the assistant like a secondary widget below marketing copy, the app opens directly into the interaction that matters most: describe a need, ask a question, and move toward proof, pricing context, qualification, or booking.
+
+### Use AI selectively, not indiscriminately
+
+One of the main design decisions was refusing to let the model answer everything. Calculator requests, ROI estimation, case-study proof, date and time lookup, and location extraction all route through deterministic tools because those paths need to be consistent, testable, and easy to reason about. General model fallback is available, but only for the questions that genuinely benefit from it.
+
+### Build the workflow around the chat
+
+I treated the assistant as one piece of a broader system. The app stores conversations, tracks leads and booking requests, supports follow-up workflows, surfaces trust and retention messaging, and gives the owner dashboard controls for accounts, publishing, and site customization. That surrounding workflow is what makes the assistant useful beyond the first response.
+
+### Keep the implementation honest
+
+I split chat orchestration, MCP tool definitions, auth, conversations, leads, booking, follow-up, audio, publishing, and site settings into focused modules so the project would stay understandable as the feature set grew. The goal was not abstraction for its own sake. The goal was to avoid a codebase where all product behavior leaks into UI components and API routes.
+
+## What I Built
+
+- A Next.js 16 and React 19 application centered on a conversation-first assistant experience
+- Deterministic tools for calculation, ROI estimation, case-study proof lookup, date and time lookup, and location extraction
+- MCP-compatible stdio servers and a registry-backed discovery route so tool inventory is explicit and reusable
+- Optional Anthropic-backed fallback for open-ended conversational requests
+- One-time verification-code auth plus Google sign-in for persistent account history
+- Conversation lifecycle controls including rename, archive, restore, export, and deletion
+- Lead capture, booking intake, and follow-up flows connected directly to chat activity
+- An owner dashboard for accounts, leads, bookings, follow-ups, publishing operations, and site settings
+- Voice transcription for public chat input and constrained owner-only voice publishing
+- File-backed persistence and retention cleanup tooling for stored records
+
+## Architecture Highlights
+
+The codebase is organized around product slices rather than a monolithic chat implementation. Most domain logic lives under `core/`, while deterministic tool definitions and standalone servers live under `mcp/`. That split let me keep the UI focused on interaction and state transitions instead of burying business rules in components.
+
+The decisions that mattered most were:
+
+- routing sensitive or structured requests through deterministic tools instead of free-form generation
+- keeping the MCP tool inventory centralized so the app and external clients can discover the same capabilities
+- using file-backed persistence for local-first product behavior without introducing unnecessary infrastructure for the project scope
+- treating trust, retention, and deletion controls as product features rather than hidden backend details
+- separating public chat behavior from owner-admin actions such as publishing and site customization
+
+That structure matters because the product has to do more than answer a prompt. It has to capture intent, preserve history, expose clear boundaries around storage and AI usage, and support owner workflows that continue after the chat session ends.
+
+## Technical Challenges
+
+### Choosing when not to use the model
+
+The hardest part was not generating replies. It was deciding where generation should stop. Calculator, ROI, case-study, and date/time requests benefit from strict tool logic. More open-ended questions can tolerate model-backed responses. Getting that boundary right was important for both user trust and implementation clarity.
+
+### Connecting conversation to follow-through
+
+An assistant that captures a lead or booking request is not useful unless the rest of the product supports what happens next. I had to connect the chat surface to lead records, booking intake, follow-up state, retention cleanup, and owner review flows so the conversation resolved into an actual business process.
+
+### Keeping voice publishing constrained
+
+Voice input for visitors and voice publishing for the owner sound similar, but they have very different risk profiles. Owner publishing needed guardrails so transcribed commands could update approved content surfaces like homepage copy or site settings without becoming a general-purpose admin command channel.
+
+## Testing and Reliability
+
+I treated testing as part of the design, not as cleanup. The Vitest suite covers chat orchestration, MCP tools, auth verification, booking flows, lead retention, owner routes, follow-up logic, and transcription routes across the slices where regressions would be expensive.
+
+That level of coverage matters because the project crosses public chat, authenticated storage, owner-only actions, tool routing, voice transcription, and retention behavior. The tests help keep those boundaries explicit as the app evolves.
+
+## Outcome
+
+The result is a full-stack AI consultant application that demonstrates more than interface work or prompt wiring. It shows how I think about product structure, deterministic AI behavior, owner/admin operations, and trust-oriented workflow design in one system.
+
+As a portfolio piece, it represents the kind of software I want to build: products where AI is useful because it is embedded inside clear workflows, explicit constraints, and maintainable implementation decisions.
+
+## Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Vitest
+- Anthropic SDK
+- OpenAI Whisper API integration
+- Model Context Protocol SDK
+- Nodemailer
+- File-backed JSON persistence
+
+## What I Would Improve Next
+
+If I keep extending the project, the next steps would be deeper observability, more production-oriented persistence, and tighter analytics around lead conversion and follow-up outcomes. The core workflow is already there. The next phase would be making it easier to measure, monitor, and refine in a more production-like environment.

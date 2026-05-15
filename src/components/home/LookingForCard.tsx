@@ -4,6 +4,8 @@ import { TextLink } from "@/components/ui/TextLink";
 type LookingForCardProps = {
   lookingFor: LookingFor;
   skills: Skill[];
+  aboutEyebrow: string;
+  aboutParagraph: string;
   email: string;
   githubUrl: string;
   linkedInUrl: string;
@@ -12,6 +14,8 @@ type LookingForCardProps = {
 export function LookingForCard({
   lookingFor,
   skills,
+  aboutEyebrow,
+  aboutParagraph,
   email,
   githubUrl,
   linkedInUrl,
@@ -36,6 +40,13 @@ export function LookingForCard({
               LinkedIn
             </TextLink>
           </div>
+        </div>
+      </div>
+
+      <div className="card-gradient px-6 py-8 sm:px-8">
+        <p className="eyebrow">{aboutEyebrow}</p>
+        <div className="mt-4 max-w-3xl">
+          <p className="type-body text-body">{aboutParagraph}</p>
         </div>
       </div>
 
